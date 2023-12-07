@@ -1,0 +1,11 @@
+{
+  // Fix for spurious build error "can't find crate for `test`" on the line
+  // `#![no_std]`. It didn't actually break the build, but it displayed as an
+  // error in VS Code.
+  // Source: https://github.com/rust-lang/rust-analyzer/issues/3801#issuecomment-609003603
+  "rust-analyzer.checkOnSave.allTargets": false,
+  "rust-analyzer.checkOnSave.extraArgs": [
+    "--target",
+    "thumbv6m-none-eabi"
+  ]
+}

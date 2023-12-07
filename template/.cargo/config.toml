@@ -1,0 +1,38 @@
+# config.toml docs: https://doc.rust-lang.org/cargo/reference/config.html
+
+[build]
+# Set the default target to match the Cortex-M0+ in the RP2040.
+target = "thumbv6m-none-eabi"
+
+# Target-specific options
+[target.thumbv6m-none-eabi]
+# Extra rustc and linker flags.
+#
+# * linker argument --nmagic: turns off page alignment of sections (saves
+#   flash space)
+# * linker argument -Tlink.x: tells the linker to use link.x as the linker
+#   script. This is usually provided by the cortex-m-rt crate.
+#   The script in that crate will include a file called `memory.x` that
+#   describes the memory layout for your specific chip. You must place this
+#   file in the root directory of the package.
+# * inline-threshold=5: makes the compiler more aggressive with regard to
+#   inlining.
+# * no-vectorize-loops: turns off the loop vectorizer
+#   (the M0+ doesn't have SIMD).
+rustflags = [
+    "-C",
+    "link-arg=--nmagic",
+    "-C",
+    "link-arg=-Tlink.x",
+    "-C",
+    "inline-threshold=5",
+    "-C",
+    "no-vectorize-loops",
+]
+
+# Flash and run via a debug probe (over SWD).
+runner = "probe-rs run --chip RP2040"
+
+# Alternative runner: make a UF2 file and copy it to a mounted RP2040
+# in USB bootloader mode:
+# runner = "elf2uf2-rs -d"
