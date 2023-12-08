@@ -1,17 +1,18 @@
 #![no_std]
 #![no_main]
 
+use bsp::{entry, hal, hal::fugit::RateExtU32, hal::Clock, pac};
 use embedded_hal::blocking::delay::DelayMs;
 use embedded_hal::digital::v2::OutputPin;
 use panic_halt as _;
-use rp_pico::{entry, hal, hal::fugit::RateExtU32, hal::uart, hal::Clock, pac};
+use rp_pico as bsp;
 
 #[entry]
 fn main() -> ! {
     let mut pac = pac::Peripherals::take().unwrap();
     let mut watchdog = hal::Watchdog::new(pac.WATCHDOG);
     let clocks = hal::clocks::init_clocks_and_plls(
-        rp_pico::XOSC_CRYSTAL_FREQ,
+        bsp::XOSC_CRYSTAL_FREQ,
         pac.XOSC,
         pac.CLOCKS,
         pac.PLL_SYS,
@@ -24,7 +25,7 @@ fn main() -> ! {
     let mut timer = hal::timer::Timer::new(pac.TIMER, &mut pac.RESETS, &clocks);
 
     let sio = hal::Sio::new(pac.SIO);
-    let pins = rp_pico::Pins::new(
+    let pins = bsp::Pins::new(
         pac.IO_BANK0,
         pac.PADS_BANK0,
         sio.gpio_bank0,
@@ -36,13 +37,13 @@ fn main() -> ! {
 
     // UART: GPIO0 and GPIO1
     let uart_pins = (pins.gpio0.into_function(), pins.gpio1.into_function());
-    let uart_config = uart::UartConfig::new(
+    let uart_config = hal::uart::UartConfig::new(
         115200.Hz(),
-        uart::DataBits::Eight,
+        hal::uart::DataBits::Eight,
         None,
-        uart::StopBits::One,
+        hal::uart::StopBits::One,
     );
-    let uart = uart::UartPeripheral::new(pac.UART0, uart_pins, &mut pac.RESETS)
+    let uart = hal::uart::UartPeripheral::new(pac.UART0, uart_pins, &mut pac.RESETS)
         .enable(uart_config, clocks.peripheral_clock.freq())
         .unwrap();
 
