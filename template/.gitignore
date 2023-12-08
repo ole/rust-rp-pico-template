@@ -1,1 +1,4 @@
+# macOS Finder metadata
+.DS_Store
+# Rust build products
 /target
