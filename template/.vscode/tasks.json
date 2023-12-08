@@ -14,13 +14,6 @@
       "group": {
         "kind": "build",
         "isDefault": true
-      },
-      "presentation": {
-        "echo": true,
-        "reveal": "silent",
-        "revealProblems": "onProblem",
-        "showReuseMessage": false,
-        "clear": true
       }
     },
     {
@@ -36,13 +29,6 @@
       "group": {
         "kind": "build",
         "isDefault": false
-      },
-      "presentation": {
-        "echo": true,
-        "reveal": "silent",
-        "revealProblems": "onProblem",
-        "showReuseMessage": false,
-        "clear": true
       }
     }
   ]

@@ -6,7 +6,7 @@
   "configurations": [
     {
       "preLaunchTask": "Build (debug)",
-      // probe-rs docs for VSCode integration: https://probe.rs/docs/tools/debugger/
+      // probe-rs docs for VS Code integration: https://probe.rs/docs/tools/debugger/
       "type": "probe-rs-debug",
       "request": "launch",
       "name": "Flash & run (debug)",
@@ -26,7 +26,7 @@
     },
     {
       "preLaunchTask": "Build (release)",
-      // probe-rs docs for VSCode integration: https://probe.rs/docs/tools/debugger/
+      // probe-rs docs for VS Code integration: https://probe.rs/docs/tools/debugger/
       "type": "probe-rs-debug",
       "request": "launch",
       "name": "Flash & run (release)",
